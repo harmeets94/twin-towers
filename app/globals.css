@@ -14,8 +14,8 @@
     --color-text: #333333;
     --color-text-secondary: #666666;
     --color-border: #e0e0e0;
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Poppins', sans-serif;
+    --font-heading: var(--font-playfair), serif;
+    --font-body: var(--font-poppins), sans-serif;
     --transition: all 0.3s ease;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
@@ -789,7 +789,7 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../images/pattern.png') repeat;
+    background: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='20' height='20' fill='%23000' fill-opacity='0.08'/%3E%3C/svg%3E") repeat;
     opacity: 0.05;
 }
 
@@ -1601,7 +1601,7 @@ img {
     overflow-y: auto;
 }
 .disclaimer-title {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-playfair), serif;
     font-size: 1.6rem;
     color: #1a1a2e;
     margin-bottom: 1.2rem;
@@ -1626,4 +1626,111 @@ img {
 }
 .disclaimer-close:hover {
     color: #c9a84c;
+}
+
+/* ============================================================
+   SMOOTH SCROLL OFFSET FOR STICKY HEADER
+   ============================================================ */
+section[id],
+footer[id] {
+    scroll-margin-top: 80px;
+}
+
+/* ============================================================
+   MOBILE MENU WRAPPER (React toggle)
+   ============================================================ */
+.mobile-menu-wrapper[data-menu-open="true"] .nav-menu {
+    left: 0;
+}
+
+@media (min-width: 769px) {
+    .mobile-menu-wrapper[data-menu-open] .nav-menu {
+        display: flex;
+        position: static;
+        width: auto;
+        height: auto;
+        flex-direction: row;
+        background: transparent;
+    }
+}
+
+/* ============================================================
+   NAV SCROLL SPY (React-based active link)
+   ============================================================ */
+.nav-scroll-spy[data-active-section="home"] .nav-link[href="#home"],
+.nav-scroll-spy[data-active-section="about"] .nav-link[href="#about"],
+.nav-scroll-spy[data-active-section="floor-plan"] .nav-link[href="#floor-plan"],
+.nav-scroll-spy[data-active-section="gallery"] .nav-link[href="#gallery"],
+.nav-scroll-spy[data-active-section="contact"] .nav-link[href="#contact"] {
+    color: var(--color-primary);
+}
+
+.nav-scroll-spy[data-active-section="home"] .nav-link[href="#home"]::after,
+.nav-scroll-spy[data-active-section="about"] .nav-link[href="#about"]::after,
+.nav-scroll-spy[data-active-section="floor-plan"] .nav-link[href="#floor-plan"]::after,
+.nav-scroll-spy[data-active-section="gallery"] .nav-link[href="#gallery"]::after,
+.nav-scroll-spy[data-active-section="contact"] .nav-link[href="#contact"]::after {
+    width: 100%;
+}
+
+/* ============================================================
+   FORM FIELD ERRORS
+   ============================================================ */
+.field-error {
+    color: #e53e3e;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.field-counter {
+    text-align: right;
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.btn:disabled,
+.btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.form-error-banner {
+    background: #fff5f5;
+    color: #c53030;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.form-success {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.form-success h3 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--color-dark);
+}
+
+.form-success p {
+    color: var(--color-text-secondary);
+}
+
+/* Floor plan grid layout for image + details */
+.floor-plan-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: start;
+}
+
+@media (max-width: 992px) {
+    .floor-plan-grid {
+        grid-template-columns: 1fr;
+    }
 }
