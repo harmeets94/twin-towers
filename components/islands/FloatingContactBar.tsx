@@ -18,7 +18,7 @@ export function FloatingContactBar() {
             </a>
           </div>
           <div className="top-bar-right">
-            <span className="rera">RERA: PBRERA-SAS80-PR0616</span>
+            {/* <span className="rera">RERA: PBRERA-SAS80-PR0616</span> */}
             <a href="https://wa.me/919478997378" target="_blank" rel="noopener noreferrer" className="chat-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />

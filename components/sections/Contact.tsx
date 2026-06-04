@@ -48,10 +48,10 @@ export function Contact() {
                 </div>
               </div>
             </div>
-            <div className="rera-badge">
+            {/* <div className="rera-badge">
               <span>RERA Registration No:</span>
               <strong>PBRERA-SAS80-PR0616</strong>
-            </div>
+            </div> */}
           </div>
           <div className="contact-form-section">
             <ContactForm variant="full" />
