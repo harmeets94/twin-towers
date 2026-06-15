@@ -6,7 +6,7 @@ import {
   PHONE_PRIMARY,
   PHONE_SECONDARY,
   WHATSAPP_LINK,
-  RERA_NUMBER,
+  // RERA_NUMBER,
 } from "@/lib/constants";
 
 export default function TopBar() {
@@ -39,10 +39,10 @@ export default function TopBar() {
           <span className="font-light">WhatsApp</span>
         </a>
 
-        <div className="hidden items-center gap-2 md:flex">
+        {/* <div className="hidden items-center gap-2 md:flex">
           <MapPin className="h-3.5 w-3.5 text-primary-400" />
           <span className="font-medium">{RERA_NUMBER}</span>
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );

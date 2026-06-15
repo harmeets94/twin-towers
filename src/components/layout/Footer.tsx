@@ -6,7 +6,7 @@ import {
   PHONE_PRIMARY,
   PHONE_SECONDARY,
   PROJECT_ADDRESS,
-  RERA_NUMBER,
+  // RERA_NUMBER,
 } from "@/lib/constants";
 
 export default function Footer() {
@@ -38,10 +38,10 @@ export default function Footer() {
               exclusive collection of luxury 5 BHK residences designed to
               redefine upscale living.
             </p>
-            <div className="flex items-center gap-2 text-sm text-dark-400">
+            {/* <div className="flex items-center gap-2 text-sm text-dark-400">
               <MapPin className="h-4 w-4 text-primary-500" />
               <span>{RERA_NUMBER}</span>
-            </div>
+            </div> */}
           </motion.div>
 
           <motion.div

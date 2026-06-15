@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, MapPin } from "lucide-react";
-import { NAV_ITEMS, PHONE_PRIMARY, RERA_NUMBER, WHATSAPP_LINK } from "@/lib/constants";
+import { NAV_ITEMS, PHONE_PRIMARY, WHATSAPP_LINK } from "@/lib/constants";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -85,10 +85,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   <span className="font-semibold">Chat on WhatsApp</span>
                 </a>
 
-                <div className="flex items-center justify-center gap-2 text-sm text-dark-500">
+                {/* <div className="flex items-center justify-center gap-2 text-sm text-dark-500">
                   <MapPin className="h-4 w-4 text-primary-500" />
                   <span>{RERA_NUMBER}</span>
-                </div>
+                </div> */}
               </motion.div>
             </div>
           </motion.div>

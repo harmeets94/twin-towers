@@ -1,8 +1,8 @@
 // Contact Information
-export const PHONE_PRIMARY = "+91-99885-11177";
-export const PHONE_SECONDARY = "+91-82890-11177";
-export const PHONE_PRIMARY_CLEAN = "+919988511177";
-export const RERA_NUMBER = "PBRERA-SAS80-PR0616";
+export const PHONE_PRIMARY = "+91-9478997378";
+export const PHONE_SECONDARY = "+91-8699805332";
+export const PHONE_PRIMARY_CLEAN = "+919478997378";
+// export const RERA_NUMBER = "PBRERA-SAS80-PR0616";
 
 // WhatsApp
 export const WHATSAPP_MESSAGE = encodeURIComponent(
