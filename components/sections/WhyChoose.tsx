@@ -1,4 +1,5 @@
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { Icon } from '@/components/ui/Icon';
 
 const points = [
   'Pollution free environment',
@@ -19,15 +20,15 @@ export function WhyChoose() {
             <ul className="why-choose-list">
               {points.map((p) => (
                 <li key={p}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
+                  <Icon name="check" size={24} aria-hidden />
                   <span>{p}</span>
                 </li>
               ))}
             </ul>
             <p className="why-choose-text">
-              Marbella Twin Towers is designed to offer the perfect blend of comfort and luxury, complemented by breathtaking views of the city. Each 5 BHK residence is a masterpiece of elegance, thoughtfully crafted to redefine upscale living.
+              Marbella Twin Towers is designed to offer the perfect blend of comfort and luxury,
+              complemented by breathtaking views of the city. Each 5 BHK residence is a masterpiece
+              of elegance, thoughtfully crafted to redefine upscale living.
             </p>
             <a href="#contact" className="btn btn-primary">Book a Site Visit</a>
           </div>

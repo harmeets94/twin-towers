@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  <!-- Floor plan outline -->
+  <rect x="100" y="100" width="600" height="400" fill="white" stroke="#e9ecef" stroke-width="2"/>
+  <!-- Rooms -->
+  <rect x="120" y="120" width="200" height="180" fill="#f8f9fa" stroke="#dee2e6"/>
+  <rect x="340" y="120" width="160" height="180" fill="#f8f9fa" stroke="#dee2e6"/>
+  <rect x="520" y="120" width="160" height="180" fill="#f8f9fa" stroke="#dee2e6"/>
+  <rect x="120" y="320" width="280" height="160" fill="#f8f9fa" stroke="#dee2e6"/>
+  <rect x="420" y="320" width="260" height="160" fill="#f8f9fa" stroke="#dee2e6"/>
+  <!-- Labels -->
+  <text x="220" y="215" text-anchor="middle" font-family="Arial" font-size="12" fill="#6c757d">Living Room</text>
+  <text x="420" y="215" text-anchor="middle" font-family="Arial" font-size="12" fill="#6c757d">Bedroom 1</text>
+  <text x="600" y="215" text-anchor="middle" font-family="Arial" font-size="12" fill="#6c757d">Bedroom 2</text>
+  <text x="260" y="405" text-anchor="middle" font-family="Arial" font-size="12" fill="#6c757d">Kitchen</text>
+  <text x="550" y="405" text-anchor="middle" font-family="Arial" font-size="12" fill="#6c757d">Master Bedroom</text>
+  <!-- Title -->
+  <text x="400" y="550" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1D4474">Floor Plan Type A - 5 BHK</text>
+  <!-- Gold accent line -->
+  <rect x="300" y="560" width="200" height="3" fill="#CCA540"/>
+</svg>

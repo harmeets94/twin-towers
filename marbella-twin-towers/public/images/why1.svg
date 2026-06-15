@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#1D4474"/>
+  <!-- Play button circle -->
+  <circle cx="400" cy="300" r="60" fill="white" opacity="0.9"/>
+  <polygon points="385,275 430,300 385,325" fill="#CCA540"/>
+  <!-- Decorative elements -->
+  <rect x="50" y="50" width="100" height="100" rx="8" fill="#153258"/>
+  <rect x="650" y="450" width="100" height="100" rx="8" fill="#153258"/>
+  <!-- Gold accents -->
+  <rect x="60" y="60" width="12" height="12" fill="#CCA540" opacity="0.6"/>
+  <rect x="660" y="460" width="12" height="12" fill="#CCA540" opacity="0.6"/>
+</svg>

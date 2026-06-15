@@ -3,7 +3,11 @@ import { useEffect, useState, type ReactNode } from 'react';
 
 const SECTIONS = ['home', 'about', 'floor-plan', 'gallery', 'contact'];
 
-export function NavScrollSpy({ children }: { children: ReactNode }) {
+type NavScrollSpyProps = {
+  children: ReactNode | ((activeId: string) => ReactNode);
+};
+
+export function NavScrollSpy({ children }: NavScrollSpyProps) {
   const [activeId, setActiveId] = useState('home');
 
   useEffect(() => {
@@ -27,9 +31,11 @@ export function NavScrollSpy({ children }: { children: ReactNode }) {
     return () => observer.disconnect();
   }, []);
 
+  const renderedChildren = typeof children === 'function' ? children(activeId) : children;
+
   return (
     <div data-active-section={activeId} className="nav-scroll-spy">
-      {children}
+      {renderedChildren}
     </div>
   );
 }

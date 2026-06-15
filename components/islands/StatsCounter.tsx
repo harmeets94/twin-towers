@@ -10,16 +10,18 @@ function formatNumber(num: number, target: number): string {
 export function StatsCounter({ target }: { target: number }) {
   const [value, setValue] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
-  const startedRef = useRef(false);
+  const hasRun = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || hasRun.current) return;
+
+    let rafId: number;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting && !startedRef.current) {
-            startedRef.current = true;
+          if (entry.isIntersecting && !hasRun.current) {
+            hasRun.current = true;
             const duration = 2000;
             const stepMs = 16;
             const totalSteps = duration / stepMs;
@@ -29,12 +31,12 @@ export function StatsCounter({ target }: { target: number }) {
               current += increment;
               if (current < target) {
                 setValue(current);
-                requestAnimationFrame(tick);
+                rafId = requestAnimationFrame(tick);
               } else {
                 setValue(target);
               }
             };
-            tick();
+            rafId = requestAnimationFrame(tick);
             observer.disconnect();
           }
         }
@@ -42,7 +44,10 @@ export function StatsCounter({ target }: { target: number }) {
       { threshold: 0.2 },
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(rafId);
+    };
   }, [target]);
 
   return (

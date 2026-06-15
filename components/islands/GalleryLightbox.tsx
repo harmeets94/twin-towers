@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, useRef, type ReactNode } from 'react';
+import { Icon } from '@/components/ui/Icon';
 
 type Image = { src: string; alt: string };
 
@@ -11,21 +12,48 @@ export function GalleryLightbox({
   children: ReactNode;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const prevActiveRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (openIndex === null) return;
+
+    // Store the previously focused element
+    if (document.activeElement) {
+      prevActiveRef.current = document.activeElement as HTMLElement;
+    }
+
+    // Focus the close button after mount
+    const timeout = setTimeout(() => {
+      closeRef.current?.focus();
+    }, 50);
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpenIndex(null);
       if (e.key === 'ArrowLeft') setOpenIndex((i) => (i! - 1 + images.length) % images.length);
       if (e.key === 'ArrowRight') setOpenIndex((i) => (i! + 1) % images.length);
     };
+
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
+
     return () => {
+      clearTimeout(timeout);
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
   }, [openIndex, images.length]);
+
+  // Restore focus when lightbox closes
+  useEffect(() => {
+    if (openIndex === null && prevActiveRef.current) {
+      prevActiveRef.current.focus();
+    }
+  }, [openIndex]);
+
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) setOpenIndex(null);
+  };
 
   return (
     <>
@@ -46,12 +74,16 @@ export function GalleryLightbox({
           className="lightbox active"
           role="dialog"
           aria-modal="true"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setOpenIndex(null);
-          }}
+          aria-label="Image gallery lightbox"
+          onClick={handleOverlayClick}
         >
-          <button className="lightbox-close" onClick={() => setOpenIndex(null)} aria-label="Close">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+          <button
+            className="lightbox-close"
+            onClick={() => setOpenIndex(null)}
+            aria-label="Close lightbox"
+            ref={closeRef}
+          >
+            <Icon name="x" size={30} aria-hidden />
           </button>
           <button
             className="lightbox-nav prev"
@@ -59,9 +91,9 @@ export function GalleryLightbox({
               e.stopPropagation();
               setOpenIndex((i) => (i! - 1 + images.length) % images.length);
             }}
-            aria-label="Previous"
+            aria-label="Previous image"
           >
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6" /></svg>
+            <Icon name="chevronLeft" size={30} aria-hidden />
           </button>
           <button
             className="lightbox-nav next"
@@ -69,12 +101,16 @@ export function GalleryLightbox({
               e.stopPropagation();
               setOpenIndex((i) => (i! + 1) % images.length);
             }}
-            aria-label="Next"
+            aria-label="Next image"
           >
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
+            <Icon name="chevronRight" size={30} aria-hidden />
           </button>
           <div className="lightbox-content">
-            <img src={images[openIndex].src} alt={images[openIndex].alt} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={images[openIndex].src}
+              alt={images[openIndex].alt}
+            />
           </div>
         </div>
       )}

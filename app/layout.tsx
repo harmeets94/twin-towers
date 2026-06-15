@@ -29,11 +29,16 @@ export const metadata: Metadata = {
     images: ['/hero-1.jpg'],
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  themeColor: '#1a1a1a',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

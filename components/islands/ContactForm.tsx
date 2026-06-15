@@ -1,5 +1,5 @@
 'use client';
-import { useActionState, useState, useMemo } from 'react';
+import { useActionState, useState, useId } from 'react';
 import { useFormStatus } from 'react-dom';
 import { submitContact, type ContactState } from '@/app/actions/contact';
 import { contactSchema } from '@/lib/contact-schema';
@@ -39,35 +39,48 @@ export function ContactForm({ variant = 'full' }: Props) {
   const [message, setMessage] = useState('');
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
+  // Unique IDs for aria-labelledby
+  const nameId = useId();
+  const phoneId = useId();
+  const emailId = useId();
+  const messageId = useId();
+
   // Compute per-field errors for touched fields
   const nameError = touched.name ? validateField('name', name) : null;
   const phoneError = touched.phone ? validateField('phone', phone) : null;
   const emailError = touched.email ? validateField('email', email) : null;
 
   // Check if all required fields are valid (for enabling/disabling submit)
-  const isFormValid = useMemo(() => {
-    const requiredFields: FieldName[] = variant === 'full'
-      ? ['name', 'phone', 'email']
-      : ['name', 'phone'];
-    return requiredFields.every((f) => {
-      const val = f === 'name' ? name : f === 'phone' ? phone : email;
-      return validateField(f, val) === null;
-    });
-  }, [name, phone, email, variant]);
+  const isFormValid = (() => {
+    const requiredFields: FieldName[] =
+      variant === 'full' ? ['name', 'phone', 'email'] : ['name', 'phone'];
+    const values = { name, phone, email };
+    return requiredFields.every((f) => validateField(f, values[f as 'name' | 'phone' | 'email']) === null);
+  })();
 
   // After a failed submit, mark all fields as touched so errors show immediately
   const touchAll = () => setTouched({ name: true, phone: true, email: true });
 
   const handleChange = (field: FieldName, value: string) => {
-    if (field === 'name') setName(value);
-    else if (field === 'phone') setPhone(value);
-    else if (field === 'email') setEmail(value);
-    else if (field === 'message') setMessage(value);
+    switch (field) {
+      case 'name':
+        setName(value);
+        break;
+      case 'phone':
+        setPhone(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'message':
+        setMessage(value);
+        break;
+    }
   };
 
   if (state.status === 'success') {
     return (
-      <div className="form-success" role="status">
+      <div className="form-success" role="status" aria-live="polite">
         <h3>Thank you!</h3>
         <p>Our team will contact you within 24 hours.</p>
       </div>
@@ -77,17 +90,24 @@ export function ContactForm({ variant = 'full' }: Props) {
   const fieldError = (key: 'name' | 'phone' | 'email') =>
     state.status === 'error' ? state.fieldErrors?.[key] : undefined;
 
-  const showError = (field: FieldName, clientError: string | null) => {
-    const serverError = field === 'message' ? undefined : fieldError(field as 'name' | 'phone' | 'email');
+  const getShowError = (field: FieldName, clientError: string | null) => {
+    const serverError =
+      field === 'message' ? undefined : fieldError(field as 'name' | 'phone' | 'email');
     return clientError || serverError;
   };
+
+  const nameErrorMsg = getShowError('name', nameError);
+  const phoneErrorMsg = getShowError('phone', phoneError);
+  const emailErrorMsg = getShowError('email', emailError);
 
   return (
     <form
       action={formAction}
       className="contact-form"
       noValidate
-      onSubmit={() => { if (state.status === 'error') touchAll(); }}
+      onSubmit={() => {
+        if (state.status === 'error') touchAll();
+      }}
     >
       {variant === 'full' && <h3>Get In Touch</h3>}
 
@@ -106,10 +126,13 @@ export function ContactForm({ variant = 'full' }: Props) {
           value={name}
           onChange={(e) => handleChange('name', e.target.value)}
           onBlur={() => setTouched((t) => ({ ...t, name: true }))}
-          aria-invalid={Boolean(showError('name', nameError))}
+          aria-invalid={Boolean(nameErrorMsg)}
+          aria-describedby={nameErrorMsg ? nameId : undefined}
         />
-        {showError('name', nameError) && (
-          <p className="field-error">{showError('name', nameError)}</p>
+        {nameErrorMsg && (
+          <p id={nameId} className="field-error" role="alert">
+            {nameErrorMsg}
+          </p>
         )}
       </div>
 
@@ -122,10 +145,13 @@ export function ContactForm({ variant = 'full' }: Props) {
           value={phone}
           onChange={(e) => handleChange('phone', e.target.value)}
           onBlur={() => setTouched((t) => ({ ...t, phone: true }))}
-          aria-invalid={Boolean(showError('phone', phoneError))}
+          aria-invalid={Boolean(phoneErrorMsg)}
+          aria-describedby={phoneErrorMsg ? phoneId : undefined}
         />
-        {showError('phone', phoneError) && (
-          <p className="field-error">{showError('phone', phoneError)}</p>
+        {phoneErrorMsg && (
+          <p id={phoneId} className="field-error" role="alert">
+            {phoneErrorMsg}
+          </p>
         )}
       </div>
 
@@ -138,10 +164,13 @@ export function ContactForm({ variant = 'full' }: Props) {
           value={email}
           onChange={(e) => handleChange('email', e.target.value)}
           onBlur={() => setTouched((t) => ({ ...t, email: true }))}
-          aria-invalid={Boolean(showError('email', emailError))}
+          aria-invalid={Boolean(emailErrorMsg)}
+          aria-describedby={emailErrorMsg ? emailId : undefined}
         />
-        {showError('email', emailError) && (
-          <p className="field-error">{showError('email', emailError)}</p>
+        {emailErrorMsg && (
+          <p id={emailId} className="field-error" role="alert">
+            {emailErrorMsg}
+          </p>
         )}
       </div>
 
@@ -154,15 +183,20 @@ export function ContactForm({ variant = 'full' }: Props) {
             maxLength={2000}
             value={message}
             onChange={(e) => handleChange('message', e.target.value)}
+            aria-describedby={messageId}
           />
-          <p className="field-counter">{message.length}/2000</p>
+          <p id={messageId} className="field-counter">
+            {message.length}/2000
+          </p>
         </div>
       )}
 
       <SubmitButton disabled={!isFormValid}>
         {variant === 'compact' ? 'Get Callback' : 'Submit Now'}
       </SubmitButton>
-      {variant === 'full' && <p className="form-note">Our team will contact you within 24 hours</p>}
+      {variant === 'full' && (
+        <p className="form-note">Our team will contact you within 24 hours</p>
+      )}
     </form>
   );
 }
