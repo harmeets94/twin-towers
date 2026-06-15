@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     "Premium residences Airport Road",
     "Luxury highrise Mohali",
   ],
-  authors: [{ name: "Tangent Promoters" }],
-  creator: "Tangent Promoters",
+  authors: [{ name: "HS Properties" }],
+  creator: "HS Properties",
   openGraph: {
     type: "website",
     locale: "en_IN",
