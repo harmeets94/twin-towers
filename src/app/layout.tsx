@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | Marbella Twin Towers",
   },
   description:
-    "Marbella Twin Towers - Premium luxury 5 BHK apartments on Airport Road, New Chandigarh. Experience opulent living with world-class amenities. RERA registered: PBRERA-SAS80-PR0616",
+    "Marbella Twin Towers - Premium luxury 5 BHK apartments on Airport Road, New Chandigarh. Experience opulent living with world-class amenities.",
   keywords: [
     "Marbella Twin Towers",
     "Marbella Twin Towers Mohali",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://marbellatwintowers.tangentpromoters.com",
+    url: "https://marbellatwintowers.hvproperties.in",
     siteName: "Marbella Twin Towers",
     title: "Marbella Twin Towers | Luxury 5 BHK Residences",
     description: "Premium luxury apartments in New Chandigarh",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://marbellatwintowers.tangentpromoters.com",
+    canonical: "https://marbellatwintowers.hvproperties.in",
   },
   verification: {
     // google: "your-google-verification-code",
